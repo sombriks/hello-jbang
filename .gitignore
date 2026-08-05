@@ -3,3 +3,11 @@
 *.iml
 .vscode
 *.db
+
+05/build
+05/build.gradle
+05/settings.gradle
+05/gradle/**/*
+05/.gradle
+05/gradlew
+05/gradlew.bat

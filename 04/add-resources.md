@@ -69,5 +69,5 @@ public class Build {
 
 The `//COMPILE_OPTIONS` is just to make jackson behave. More on that later. 
 
-Both in `//FILES` and `//SOURCES` it's possible to indicate, a list of 
+Both in `//FILES` and `//SOURCES` it's possible to indicate a list of
 comma-separated file or folders with wildcards. (i.e. src/main/java/**/*.java).

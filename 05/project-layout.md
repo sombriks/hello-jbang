@@ -84,7 +84,7 @@ public class TodoApp {
 }
 ```
 
-## A lower barrier
+## A lower entry barrier
 
 This sample aims to demonstrate how far jbang can take the project. It is 
 possible to start with a simple, humble configuration and grow from that. This 
