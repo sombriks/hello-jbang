@@ -1,34 +1,3 @@
-# Resources
-
-Resources are useful for configurations, templates and all sort of blobs you 
-application migh need to consume in order to do the jobs.
-
-In jbang, resources are pretty straightforward. For example:
-
-```bash
-touch users.xml
-touch User.java
-rouch log4j2.xml
-jbang init --deps \
-tools.jackson.dataformat:jackson-dataformat-xml:3.0.3,\
-org.apache.logging.log4j:log4j-api:2.26.1,\
-org.apache.logging.log4j:log4j-core:2.26.1 \
-Build.java
-```
-
-Users xml would be like this:
-
-```xml
-<Users>
-    <user id="1" name="Alice"/>
-    <user id="2" name="Bobb"/>
-</Users>
-```
-
-In Buyild.jva, we'll use the `//SOURCES` comment for the extra java sources and 
-the `//FILES` for the resource files: 
-
-```java
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 25+
 //COMPILE_OPTIONS -parameters
@@ -65,9 +34,3 @@ public class Build {
         LOG.info(users);
     }
 }
-```
-
-The `//COMPILE_OPTIONS` is just to make jackson behave. More on that later. 
-
-Both in `//FILES` and `//SOURCES` it's possible to indicate, a list of 
-comma-separated file or folders with wildcards. (i.e. src/main/java/**/*.java).
