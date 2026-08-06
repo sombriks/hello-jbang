@@ -1,4 +1,6 @@
-# Hello JBang
+# [Hello JBang][repo]
+
+[repo]: https://github.com/sombriks/hello-jbang
 
 Quick tour on how [jbang][jbang] can be useful to trim down the barrier to 
 manage java projects, from the simplest to the complex case.
