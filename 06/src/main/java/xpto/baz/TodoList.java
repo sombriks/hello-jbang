@@ -13,7 +13,7 @@ public class TodoList {
 
     private String description;
 
-    @OneToMany(mappedBy = "todoList", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "todoList", fetch = FetchType.EAGER)
     private Set<TodoItem> items = new HashSet<>();
 
     public Long getId() {
@@ -40,10 +40,15 @@ public class TodoList {
         this.items = items;
     }
 
-    public TodoList(){}
+    public TodoList() {
+    }
 
-    public TodoList(String description){
+    public TodoList(String description) {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "TodoList#" + id + "," + description + ": " + items;
+    }
 }

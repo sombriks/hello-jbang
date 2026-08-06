@@ -48,4 +48,18 @@ public class TodoItem {
     public void setTodoList(TodoList todoList) {
         this.todoList = todoList;
     }
+
+    public TodoItem() {
+    }
+
+    public TodoItem(TodoList todoList, String task) {
+        this.todoList = todoList;
+        this.description = task;
+    }
+
+    @Override
+    public String toString() {
+        return "(#" + id + ", " + description + ")";
+    }
 }
+

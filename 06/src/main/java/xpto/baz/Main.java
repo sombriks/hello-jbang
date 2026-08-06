@@ -2,35 +2,47 @@ package xpto.baz;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.eclipse.persistence.internal.jpa.deployment.SEPersistenceUnitInfo;
-import org.eclipse.persistence.jpa.PersistenceProvider;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
-import java.util.Properties;
 
 public class Main {
+
+    private final EntityManagerFactory emf = Persistence //
+            .createEntityManagerFactory("default");
+
+    public List<TodoList> list() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("""
+                    select t from TodoList t
+                    """, TodoList.class).getResultList();
+        }
+    }
+
+    public TodoList add(String list, String task) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            TodoList todoList = new TodoList(list);
+            TodoItem todoItem = new TodoItem(todoList, task);
+            em.persist(todoList);
+            em.persist(todoItem);
+            em.flush();
+            em.clear();
+            em.getTransaction().commit();
+            todoList.getItems().add(todoItem);
+            return todoList;
+        }
+    }
+
+    public void close() {
+        emf.close();
+    }
+
     public static void main(String... args) throws Exception {
-        SEPersistenceUnitInfo puInfo = new SEPersistenceUnitInfo();
-        puInfo.setPersistenceUnitName("default");
-        puInfo.setPersistenceUnitRootUrl(Main.class.getProtectionDomain().getCodeSource().getLocation());
-        puInfo.setClassLoader(Main.class.getClassLoader());
-        puInfo.setManagedClassNames(List
-                .of("xpto.baz.TodoList", "xpto.baz.TodoItem"));
-
-        Properties props = new Properties();
-        props.put(PersistenceUnitProperties.ECLIPSELINK_SE_PUINFO, puInfo);
-        props.load(Main.class.getClassLoader()
-                .getResourceAsStream("jpa.properties"));
-        EntityManagerFactory emf = new PersistenceProvider()
-                .createEntityManagerFactory("default", props);
-        EntityManager em = emf.createEntityManager();
-
-        TodoList todoList = new TodoList("today");
-        em.getTransaction().begin();
-        em.persist(todoList);
-        em.getTransaction().commit();
-
-
+        var app = new Main();
+        app.add("today", "walk the dog");
+        List<TodoList> result = app.list();
+        result.forEach(IO::println);
+        app.close();
     }
 }
