@@ -14,9 +14,8 @@ Initialize the project as usual:
 ```bash
 mkdir -p src/{main,test}/{java,resources}
 mkdir -p src/{main,test}/java/xpto/baz
-mkdir -p src/main/resources/META-INF
 touch src/main/java/xpto/baz/{Main,TodoList,TodoItem}.java
-touch src/main/resources/META-INF/persistence.xml
+touch src/main/resources/jpa.properties
 touch src/test/resources/init-test.sql
 touch src/test/java/xpto/baz/MainTest.java
 jbang init --deps \
