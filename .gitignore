@@ -1,4 +1,5 @@
 *.class
+*.jar
 .idea
 *.iml
 .vscode
@@ -17,3 +18,8 @@
 05/.settings
 
 06/out
+
+08/Hello
+08/lib
+
+09/out
