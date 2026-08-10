@@ -1,0 +1,23 @@
+{
+  "bundles": [
+    {
+      "name": "jakarta.servlet.LocalStrings"
+    },
+    {
+      "name": "jakarta.servlet.http.LocalStrings"
+    },
+    {
+      "name": "application.properties"
+    }
+  ],
+  "resources": {
+    "includes": [
+      {
+        "pattern": "application\\.properties"
+      },
+      {
+        "pattern": "\\Qapplication.properties\\E"
+      }
+    ]
+  }
+}
