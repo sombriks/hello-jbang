@@ -40,7 +40,6 @@ org.jdbi:jdbi3-core:3.54.0,\
 com.fasterxml.jackson.core:jackson-databind:2.22.1,\
 org.slf4j:slf4j-simple:2.0.13,\
 com.h2database:h2:2.2.224,\
-com.zaxxer:HikariCP:6.0.0 \
 Build.java
 mkdir -p src/main/{java,resources}
 mkdir -p src/main/java/app/todos
@@ -62,7 +61,6 @@ The Build.java goes as usual:
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.22.1
 //DEPS org.slf4j:slf4j-simple:2.0.13
 //DEPS com.h2database:h2:2.2.224
-//DEPS com.zaxxer:HikariCP:6.0.0
 //SOURCES src/main/java
 //FILES src/main/resources
 
@@ -152,42 +150,21 @@ _authorized_ in `META-INF/native-image/reflect-config.json`:
 ```json
 [
   {
-    "name": "java.sql.Statement[]"
-  },
-  {
-    "name": "com.zaxxer.hikari.util.ConcurrentBag$IConcurrentBagEntry[]"
-  },
-  {
-    "name": "com.zaxxer.hikari.HikariConfig",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicMethods": true
-  },
-  {
-    "name": "com.zaxxer.hikari.HikariDataSource",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true
-  },
-  {
-    "name": "com.zaxxer.hikari.pool.HikariPool",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicMethods": true
-  },
-  {
     "name": "org.h2.Driver",
+    "allPublicMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "app.todos.TodoMdl",
     "allPublicMethods": true,
     "allDeclaredConstructors": true
   }
 ]
 ```
 
-And that's it, we're good to go ahead and create a native image from this 
+Imagine that, reflection became illegal in java!
+
+Anyway, that's it, we're good to go ahead and create a native image from this 
 code using jbang:
 
 ```bash
@@ -195,3 +172,30 @@ rm -rf lib Build Build.jar Build-fatjar.jar
 jbang cache clear
 jbang export native Build.java
 ```
+
+## Is it worth the trouble?
+
+So, what do we get for our troubles?
+
+```bash
+jbang export portable Build.java
+# ...
+java -jar Build.jar
+# ...
+[main] INFO io.javalin.Javalin - Javalin started in 314ms \o/
+```
+
+Meanwhile, the native image:
+
+```bash
+./Build
+# ...
+[main] INFO io.javalin.Javalin - Javalin started in 64ms \o/
+```
+
+And even better startup times are possible.
+
+One drawback are the compilation times. They make regular java builds look 
+like a regular, interactive interpreter.
+
+But boy it runs fast! 

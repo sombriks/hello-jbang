@@ -1,7 +1,5 @@
 package app.todos;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -12,9 +10,15 @@ public class TodoSvc {
     private final Jdbi jdbi;
 
     public TodoSvc() throws Exception {
-        var cfg = new HikariConfig("/application.properties");
-        var ds = new HikariDataSource(cfg);
-        jdbi = Jdbi.create(ds);
+        try (var in = TodoSvc.class
+                .getResourceAsStream("/application.properties")) {
+            Properties props = new Properties();
+            props.load(in);
+            String url = props.getProperty("jdbcUrl");
+            String user = props.getProperty("username");
+            String pass = props.getProperty("password");
+            jdbi = Jdbi.create(url, user, pass);
+        }
     }
 
     public void init() {

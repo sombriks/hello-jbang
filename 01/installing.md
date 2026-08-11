@@ -30,5 +30,7 @@ You can also check a list of alternative methods to get it in the
 Add the following line at the end of your `.bashrc`:
 
 ```bash
-source <(jbang completion)
+# JBang
+. <(jbang completion)
+export PATH=$PATH:$HOME/.jbang/bin
 ```

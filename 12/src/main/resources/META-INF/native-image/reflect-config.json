@@ -1,35 +1,32 @@
 [
   {
-    "name": "java.sql.Statement[]"
-  },
-  {
-    "name": "com.zaxxer.hikari.util.ConcurrentBag$IConcurrentBagEntry[]"
-  },
-  {
-    "name": "com.zaxxer.hikari.HikariConfig",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicMethods": true
-  },
-  {
-    "name": "com.zaxxer.hikari.HikariDataSource",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true
-  },
-  {
-    "name": "com.zaxxer.hikari.pool.HikariPool",
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicMethods": true
-  },
-  {
     "name": "org.h2.Driver",
     "allPublicMethods": true,
     "allDeclaredConstructors": true
+  },
+  {
+    "name": "app.todos.TodoMdl",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": [
+          "java.lang.Long",
+          "java.lang.String",
+          "java.lang.Boolean"
+        ]
+      },
+      {
+        "name": "id",
+        "parameterTypes": []
+      },
+      {
+        "name": "description",
+        "parameterTypes": []
+      },
+      {
+        "name": "done",
+        "parameterTypes": []
+      }
+    ]
   }
 ]
