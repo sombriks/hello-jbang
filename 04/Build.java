@@ -1,5 +1,5 @@
-///usr/bin/env jbang "$0" "$@" ; exit $?
-//JAVA 25+
+/// usr/bin/env jbang "$0" "$@" ; exit $?
+//JAVA 23
 //COMPILE_OPTIONS -parameters
 //DEPS tools.jackson.dataformat:jackson-dataformat-xml:3.0.3
 //DEPS org.apache.logging.log4j:log4j-api:2.26.1
@@ -17,10 +17,11 @@ import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.util.ArrayList;
 
- record Users(
-    @JacksonXmlElementWrapper(useWrapping = false)
-    @JacksonXmlProperty(localName = "user")
-    ArrayList<User> user){}
+record Users(
+        @JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "user")
+        ArrayList<User> user) {
+}
 
 public class Build {
 
@@ -30,7 +31,7 @@ public class Build {
         LOG.info("Hello World");
         var mapper = XmlMapper.builder().build();
         var users = mapper.readValue(Build.class
-        .getResourceAsStream("users.xml"), Users.class);
+                .getResourceAsStream("users.xml"), Users.class);
         LOG.info(users);
     }
 }
